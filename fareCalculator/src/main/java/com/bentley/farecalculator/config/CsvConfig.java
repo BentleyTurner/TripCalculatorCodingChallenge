@@ -1,19 +1,19 @@
 package com.bentley.farecalculator.config;
 
 public class CsvConfig{
-    private String inputPath;
-    private String outputPath;
+    private String inputFileName;
+    private String outputFileName;
 
-    public CsvConfig(String inputPath, String outputPath){
-        this.inputPath = inputPath;
-        this.outputPath = outputPath;
+    public CsvConfig(String inputFileName, String outputFileName){
+        this.inputFileName = inputFileName;
+        this.outputFileName = outputFileName;
     }
 
-    public String getInputPath() {
-        return inputPath;
+    public String getInputFileName() {
+        return inputFileName;
     }
 
-    public String getOutputPath() {
-        return outputPath;
+    public String getOutputFileName() {
+        return outputFileName;
     }
 }
