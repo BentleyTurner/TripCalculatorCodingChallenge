@@ -5,7 +5,6 @@ import com.bentley.farecalculator.model.Tap;
 import com.bentley.farecalculator.model.TapType;
 import com.bentley.farecalculator.model.Commute;
 import com.bentley.farecalculator.model.CommuteStatus;
-import java.math.BigDecimal;
 
 import org.springframework.lang.Nullable;
 import static org.junit.jupiter.api.Assertions.assertEquals;

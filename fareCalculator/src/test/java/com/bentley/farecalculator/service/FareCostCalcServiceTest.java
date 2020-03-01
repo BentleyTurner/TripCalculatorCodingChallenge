@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -84,10 +83,10 @@ class FareCostCalcServiceTest {
         verify(tripCostCalculator).calculateChargeAmount(tapOn, tapOff);
         assertEquals(1, tripArgumentCaptor.getValue().size());
         Commute writtenTrip = tripArgumentCaptor.getValue().get(0);
-        assertEquals(busId, writtenTrip.getBusId());
         assertEquals(stop1, writtenTrip.getFromStopId());
         assertEquals(stop2, writtenTrip.getToStopId());
         assertEquals(companyId, writtenTrip.getCompanyId());
+        assertEquals(busId, writtenTrip.getBusId());
         assertEquals(pan, writtenTrip.getPrimaryAccountNumber());
         assertEquals(tripDuration, writtenTrip.getDurationSeconds());
         assertEquals(Date.from(startTime), writtenTrip.getStartedTime());
