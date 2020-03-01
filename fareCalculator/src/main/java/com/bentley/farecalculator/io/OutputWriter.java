@@ -30,7 +30,6 @@ public class OutputWriter{
         BufferedOutputStream bufferedOutStream = new BufferedOutputStream(outStream);
         OutputStreamWriter outStreamWriter = new OutputStreamWriter(bufferedOutStream, StandardCharsets.UTF_8);
 
-        //CsvSchema pClassSchema = csvMapper.schemaFor(pClass);
         CsvSchema pClassSchema = csvMapper.schemaFor(pClass).withHeader().withoutQuoteChar();
         ObjectWriter pClassObjectWriter = csvMapper.writer(pClassSchema);
         pClassObjectWriter.writeValue(outStreamWriter, data);

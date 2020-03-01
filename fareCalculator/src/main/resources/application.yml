@@ -1,0 +1,3 @@
+fareCalculatorApplication:
+  INPUT: "taps.csv"
+  OUTPUT: "trips.csv"

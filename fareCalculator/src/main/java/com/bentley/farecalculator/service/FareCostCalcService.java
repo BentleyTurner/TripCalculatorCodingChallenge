@@ -5,9 +5,11 @@ import com.bentley.farecalculator.model.Tap;
 import com.bentley.farecalculator.model.TapType;
 import com.bentley.farecalculator.model.Commute;
 import com.bentley.farecalculator.model.CommuteStatus;
-import com.bentley.farecalculator.config.CsvConfig;
+import com.bentley.farecalculator.configurations.CsvConfig;
+import com.bentley.farecalculator.configurations.JacksonConfiguration;
 import com.bentley.farecalculator.io.InputReader;
 import com.bentley.farecalculator.io.OutputWriter;
+import com.bentley.farecalculator.fareCalculator.CostCalculator;
 
 import org.springframework.stereotype.Service;
 import org.springframework.lang.Nullable;
@@ -30,12 +32,17 @@ public class FareCostCalcService{
     private InputReader inputReader;
     private OutputWriter outputWriter;
 
-    public FareCostCalcService(CsvConfig csvConfig, InputReader inputReader, OutputWriter outputWriter){
+    private CostCalculator costCalculator;
+
+    public FareCostCalcService(CsvConfig csvConfig, JacksonConfiguration jacksonConfiguration, InputReader inputReader, OutputWriter outputWriter, CostCalculator costCalculator){
        this.inputReader = inputReader;
        this.outputWriter = outputWriter;
 
        this.inputFileName = csvConfig.getInputFileName();
        this.outputFileName = csvConfig.getOutputFileName();
+
+       this.costCalculator = costCalculator;
+
     }
 
     public void calculateTrips() throws IOException{
@@ -85,7 +92,10 @@ public class FareCostCalcService{
         Trip.setFromStopId(onTap.getStopId());
         Trip.setCompanyId(onTap.getCompanyId());
         Trip.setPrimaryAccNumber(onTap.getPrimaryAccNumber());
-        //TODO CALC's HERE
+
+        Trip.setChargeAmount("$ " + costCalculator.CalculateTrip(onTap, offTap, commuteStatus));
+        Trip.setCommuteStatus(commuteStatus);
+
         return Trip;
     }
 
@@ -96,7 +106,10 @@ public class FareCostCalcService{
     private static long calcTripSeconds(Date onTap, Date offTap){
         return TimeUnit.MILLISECONDS.toSeconds(onTap.getTime() - offTap.getTime());
     }
-    private static CommuteStatus getTripStatus(Tap onTap, Tap offTap){
+    private static CommuteStatus getTripStatus(Tap onTap, @Nullable Tap offTap){
+        if(offTap == null){
+            return CommuteStatus.INCOMPLETE;
+        }
         if(offTap.getStopId().equals(onTap.getStopId())){
             return CommuteStatus.CANCELLED;
         }

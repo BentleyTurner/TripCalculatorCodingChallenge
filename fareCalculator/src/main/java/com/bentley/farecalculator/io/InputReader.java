@@ -1,5 +1,4 @@
 package com.bentley.farecalculator.io;
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
