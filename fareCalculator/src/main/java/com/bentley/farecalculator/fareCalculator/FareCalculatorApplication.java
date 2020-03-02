@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.bentley.farecalculator.Service.FareCostCalcService;
 import com.bentley.farecalculator.io.InputReader;
 import com.bentley.farecalculator.io.OutputWriter;
-import com.bentley.farecalculator.config.CsvConfig;
+import com.bentley.farecalculator.configurations.CsvConfig;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import java.io.IOException;
